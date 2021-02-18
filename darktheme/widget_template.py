@@ -1,23 +1,7 @@
 
-from PyQt5.QtCore import (
-    Qt,
-    pyqtSignal,
-    )
-
-from PyQt5.QtWidgets import (
-    QApplication,
-    QFrame,
-    QInputDialog,
-    QLabel,
-    QMessageBox,
-    QWidget, 
-    )
-
-from PyQt5.QtGui import (
-    QColor,
-    QCursor,
-    QPalette,
-    )
+from PySide6.QtCore import Qt
+from PySide6.QtWidgets import QApplication, QFrame, QInputDialog, QLabel, QMessageBox, QWidget
+from PySide6.QtGui import QColor, QCursor, QPalette
 
 
 class DarkPalette(QPalette):
@@ -52,71 +36,3 @@ class DarkApplication(QApplication):
         self.setPalette(DarkPalette())
         # self.setFont(QFont("schoensperger", 20))
         self.setStyleSheet("QToolTip { color: #ffffff; background-color: grey; border: 1px solid white; }")
-
-class QClickWidget (QWidget):
-    """A widget which is clickable"""
-    def __init__(self, *args):
-        super().__init__(*args)
-    
-    clicked = pyqtSignal()
-
-    def mousePressEvent(self, ev):
-        if QApplication.mouseButtons() & Qt.LeftButton:
-            self.clicked.emit()
-
-class QBorderedWidget(QClickWidget):
-    """A widget which is the default, but with some different stylesheet details (borders)"""
-    def __init__(self, *args):
-        super().__init__(*args)
-
-        self.setStyleSheet("border: 1px solid rgb(100, 100, 100)")
-
-class QUnBorderedWidget(QClickWidget):
-    """A widget which is the default, but with some different stylesheet details (borders)"""
-    def __init__(self, *args):
-        super().__init__(*args)
-
-        self.setStyleSheet("border: 0px")
-
-class QClickFrame (QFrame):
-    """A frame which is clickable"""
-    def __init__(self, *args):
-        super().__init__(*args)
-
-    clicked = pyqtSignal()
-
-    def mousePressEvent(self, ev):
-        if QApplication.mouseButtons() & Qt.LeftButton:
-            self.clicked.emit()
-
-class QFlatFrame (QClickFrame):
-    """A visible frame to hold a layout of widgets."""
-    def __init__(self, *args):
-        super().__init__(*args)
-
-        self.setFrameStyle(QFrame.Box)
-
-class QBorderlessFrame (QClickFrame):
-    """An invisible frame to hold a layout of widgets."""
-    def __init__(self, *args):
-        super().__init__(*args)
-
-        self.setFrameStyle(QFrame.NoFrame)
-
-class QRaisedFrame (QClickFrame):
-    """A raised frame to hold a layout of widgets."""
-    def __init__(self, *args):
-        super().__init__(*args)
-
-        self.setFrameStyle(QFrame.Panel | QFrame.Raised)
-
-class QClickLabel (QLabel):
-    """A label which is clickable"""
-    def __init__(self, *args):
-        super().__init__(*args)
-
-    clicked = pyqtSignal()
-
-    def mousePressEvent(self, ev):
-        if QApplication.mouseButtons() & Qt.LeftButton:
-            self.clicked.emit()
